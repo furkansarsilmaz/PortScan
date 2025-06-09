@@ -1,9 +1,9 @@
-import customtkinter
+import customtkinter,socket,time
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
 class Myapp(customtkinter.CTk):
-    #our Constructor
+    #Constructor
     def __init__(self):
         super().__init__()
         self.geometry("500x300")
@@ -44,14 +44,29 @@ class Leftframe(customtkinter.CTkFrame):
         self.save_button.grid(row=2,column=1)
 
     def get_ip1(self):
-        ip_one = self.ip_text_box.get("0.0","end")
-        ip_two = self.ip2_text_box.get("0.0","end")
-        int_ip_one = int(ip_one)
-        int_ip_two = int(ip_two)
-        if int_ip_one < 0 or int_ip_two < 0 :
-            print("Number should be greater than zero")
-        else:
-            self.right_frame.text_output.insert("0.0","Working on it...")
+        host = "127.0.0.1"
+        self.right_frame.text_output.delete(0.0,"end")
+        ip_one = self.ip_text_box.get("0.0","end").strip()
+        ip_two = self.ip2_text_box.get("0.0","end").strip()
+        
+        try:
+            int_ip_one = int(ip_one)
+            int_ip_two = int(ip_two)
+
+            if int_ip_one < 0 or int_ip_two < 0 :
+                print("Number should be greater than zero")
+            else:
+                for i in range(int_ip_one,int_ip_two+1,1):
+                    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                    socket.setdefaulttimeout(2)
+                    result = s.connect_ex((host,i))
+                    if result == 0 :
+                        self.right_frame.text_output.insert("0.0",f"{i} port is open...\n")
+                    else :
+                        self.right_frame.text_output.insert("0.0",f"{i} port is close...\n")
+                    s.close()
+        except ValueError:
+            self.right_frame.text_output.insert("0.0","Please give a number\n")
 
 class RightFrame(customtkinter.CTkFrame):
     def __init__(self,parent):
