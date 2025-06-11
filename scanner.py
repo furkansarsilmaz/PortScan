@@ -1,4 +1,4 @@
-import customtkinter,socket,time
+import customtkinter,socket,time,threading
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
@@ -40,7 +40,7 @@ class Leftframe(customtkinter.CTkFrame):
         self.submit_button = customtkinter.CTkButton(self,width=30,text="Submit",command=self.get_ip1)
         self.submit_button.grid(row=2,column=0)
 
-        self.save_button = customtkinter.CTkButton(self,width=40,text="Save")
+        self.save_button = customtkinter.CTkButton(self,width=40,text="Save",command=self.saver)
         self.save_button.grid(row=2,column=1)
 
     def get_ip1(self):
@@ -65,8 +65,20 @@ class Leftframe(customtkinter.CTkFrame):
                     else :
                         self.right_frame.text_output.insert("0.0",f"{i} port is close...\n")
                     s.close()
+                self.saver()
+
         except ValueError:
             self.right_frame.text_output.insert("0.0","Please give a number\n")
+
+    def saver(self):
+        dialog = customtkinter.CTkInputDialog(title="Saver",text="Do you want to save the results ? (y or n)")
+        user_input = dialog.get_input()
+        if user_input == 'y' or user_input == 'Y' :
+            print("Saving...")
+        elif user_input == 'n' or user_input == 'N' :
+            exit()
+        else:
+            exit()
 
 class RightFrame(customtkinter.CTkFrame):
     def __init__(self,parent):
