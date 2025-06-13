@@ -75,6 +75,8 @@ class Leftframe(customtkinter.CTkFrame):
         user_input = dialog.get_input()
         if user_input == 'y' or user_input == 'Y' :
             print("Saving...")
+            with open("dosya.txt","w") as d :
+                d.write(self.right_frame.text_output.get("0.0","end"))
         elif user_input == 'n' or user_input == 'N' :
             exit()
         else:
