@@ -7,7 +7,7 @@ class Myapp(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("500x300")
-        self.title("Mein App")
+        self.title("PortScanner")
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
 
@@ -55,20 +55,31 @@ class Leftframe(customtkinter.CTkFrame):
 
             if int_ip_one < 0 or int_ip_two < 0 :
                 print("Number should be greater than zero")
+
             else:
+                """
+                with for loop, create a socket and try to connect it to
+                the host address. If result is zero it is open, if not 
+                it is close.
+                """
                 for i in range(int_ip_one,int_ip_two+1,1):
-                    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                    socket.setdefaulttimeout(2)
-                    result = s.connect_ex((host,i))
-                    if result == 0 :
-                        self.right_frame.text_output.insert("0.0",f"{i} port is open...\n")
-                    else :
-                        self.right_frame.text_output.insert("0.0",f"{i} port is close...\n")
-                    s.close()
+                    thread = threading.Thread(target=self.scan_ips,args=(host,i))
+                    thread.start()
                 self.saver()
 
         except ValueError:
             self.right_frame.text_output.insert("0.0","Please give a number\n")
+
+    def scan_ips(self,host,port):
+        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        socket.setdefaulttimeout(1)
+        result = s.connect_ex((host,port))
+        if result == 0 :
+            self.right_frame.text_output.insert("0.0",f"{port} port is open...\n")
+        else :
+            self.right_frame.text_output.insert("0.0",f"{port} port is close...\n")
+        s.close()
+
 
     def saver(self):
         dialog = customtkinter.CTkInputDialog(title="Saver",text="Do you want to save the results ? (y or n)")
