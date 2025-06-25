@@ -1,9 +1,16 @@
 import customtkinter,socket,threading
 from FrameRight import RightFrame
+from PIL import Image
 
 class Leftframe(customtkinter.CTkFrame):
     def __init__(self,parent,right_frame):
         super().__init__(parent)
+        """
+        self.banner = customtkinter.CTkImage(light_image=Image.open('page-banner-network.jpg'),size=(100,100))
+        self.banner_label = customtkinter.CTkLabel(self,image=self.banner,text="")
+        self.banner_label.grid(row=0,column=0,columnspan=2,pady=10)
+        """
+        
         self.right_frame = right_frame
         #for the beginning of the ip values
         self.ip_label = customtkinter.CTkLabel(self,text="IP :")
