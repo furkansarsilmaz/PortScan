@@ -22,8 +22,8 @@ class Myapp(customtkinter.CTk):
         self.right_frame = RightFrame(self)
         self.right_frame.grid(row=0,column=1,sticky="ne",padx=30,pady=30)
 
-        self.myframe = Leftframe(self,self.right_frame)
-        self.myframe.grid(row=0, column=0,sticky="nw",padx=70,pady=30)
+        self.left_frame = Leftframe(self,self.right_frame)
+        self.left_frame.grid(row=0, column=0,sticky="nw",padx=70,pady=80)
 
 if __name__ == '__main__' :
     app = Myapp()

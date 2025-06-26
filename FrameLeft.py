@@ -5,27 +5,23 @@ from PIL import Image
 class Leftframe(customtkinter.CTkFrame):
     def __init__(self,parent,right_frame):
         super().__init__(parent)
-        """
-        self.banner = customtkinter.CTkImage(light_image=Image.open('page-banner-network.jpg'),size=(100,100))
-        self.banner_label = customtkinter.CTkLabel(self,image=self.banner,text="")
-        self.banner_label.grid(row=0,column=0,columnspan=2,pady=10)
-        """
         
         self.right_frame = right_frame
         #for the beginning of the ip values
-        self.ip_label = customtkinter.CTkLabel(self,text="IP :")
+        self.ip_label = customtkinter.CTkLabel(self,text="Port range")
         self.ip_label.grid(row=0,column=0)
 
         self.ip_text_box = customtkinter.CTkTextbox(self,width=50,height=10)
-        self.ip_text_box.grid(row=0,column=1)
+        self.ip_text_box.grid(row=1,column=0)
         
         #for the end of the ip values
+        """
         self.ip2_label = customtkinter.CTkLabel(self,text="IP2 :")
         self.ip2_label.grid(row=1,column=0)
-
+        """
         self.ip2_text_box = customtkinter.CTkTextbox(self,width=50,height=10)
         self.ip2_text_box.grid(row=1,column=1)
-
+        
         self.submit_button = customtkinter.CTkButton(self,width=30,text="Submit",command=self.get_ip1)
         self.submit_button.grid(row=2,column=0)
 
