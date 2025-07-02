@@ -11,19 +11,19 @@ class Leftframe(customtkinter.CTkFrame):
         self.ip_label = customtkinter.CTkLabel(self,text="Port range")
         self.ip_label.grid(row=0,column=0)
 
-        self.ip_text_box = customtkinter.CTkTextbox(self,width=50,height=10)
-        self.ip_text_box.grid(row=1,column=0)
+        self.ip_text_box = customtkinter.CTkTextbox(self,width=80,height=10)
+        self.ip_text_box.grid(row=1,column=0,pady=5)
         
         #for the end of the ip values
         """
         self.ip2_label = customtkinter.CTkLabel(self,text="IP2 :")
         self.ip2_label.grid(row=1,column=0)
         """
-        self.ip2_text_box = customtkinter.CTkTextbox(self,width=50,height=10)
-        self.ip2_text_box.grid(row=1,column=1)
+        self.ip2_text_box = customtkinter.CTkTextbox(self,width=80,height=10)
+        self.ip2_text_box.grid(row=2,column=0,pady=5)
         
         self.submit_button = customtkinter.CTkButton(self,width=30,text="Submit",command=self.get_ip1)
-        self.submit_button.grid(row=2,column=0)
+        self.submit_button.grid(row=3,column=0,pady=5)
 
         #self.save_button = customtkinter.CTkButton(self,width=40,text="Save",command=self.saver)
         #self.save_button.grid(row=2,column=1)
